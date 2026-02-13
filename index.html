@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yuvraj ❤️ Riya Valentine</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Comic Sans MS", cursive;
+      background: radial-gradient(circle, #fff0f5, #ff99aa);
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* START BIG HEART */
+    #startHeart {
+      font-size: 120px;
+      margin-top: 100px;
+      cursor: pointer;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {transform: scale(1);}
+      50% {transform: scale(1.15);}
+      100% {transform: scale(1);}
+    }
+
+    /* Hidden Sections */
+    .hidden { display: none; }
+
+    /* Card Box */
+    .box {
+      background: rgba(255,255,255,0.95);
+      padding: 40px;
+      width: 90%;
+      max-width: 720px;
+      margin: 40px auto;
+      border-radius: 25px;
+      box-shadow: 0 0 40px rgba(255,0,128,0.35);
+      font-size: 26px;
+    }
+
+    button {
+      padding: 18px 30px;
+      font-size: 24px;
+      border: none;
+      border-radius: 18px;
+      background: hotpink;
+      color: white;
+      cursor: pointer;
+      margin: 15px;
+      transition: 0.25s;
+    }
+    button:hover { transform: scale(1.08); background: deeppink; }
+
+    /* Floating Hearts */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 28px;
+      animation: floatUp 6s linear infinite;
+    }
+    @keyframes floatUp { from {transform: translateY(0); opacity:1;} to {transform: translateY(-110vh); opacity:0;} }
+
+    /* Butterflies */
+    .butterfly {
+      position: fixed;
+      font-size: 35px;
+      animation: fly 4s linear infinite;
+    }
+    @keyframes fly { from {left:-50px; top:80%;} to {left:110%; top:10%;} }
+
+    /* Characters */
+    .chars img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid pink;
+      margin: 10px;
+    }
+
+    .finalMsg {
+      font-size: 22px;
+      line-height: 2;
+      text-align: left;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- START HEART -->
+<div id="startScreen">
+  <div id="startHeart">❤️</div>
+  <h2>Click the Heart 💌</h2>
+</div>
+
+<!-- MAIN STORY -->
+<div id="main" class="hidden">
+  <div class="box">
+    <h1>🌸 Hinata & Naruto Valentine 🌸</h1>
+
+    <div class="chars">
+      <img src="hinata.png">
+      <img src="naruto.png">
+    </div>
+
+    <p id="question"></p>
+
+    <input id="answer"
+      style="font-size:22px; padding:14px; width:80%; border-radius:12px;"
+      placeholder="Type your answer...">
+
+    <br>
+    <button onclick="nextQuestion()">Next ❤️</button>
+
+    <div id="yesno"></div>
+    <p id="finalMsg"></p>
+  </div>
+</div>
+
+<script>
+  // START HEART CLICK
+  document.getElementById("startHeart").onclick = function() {
+    document.getElementById("music").play();
+
+    // Floating hearts
+    for(let i=0;i<20;i++){
+      let h=document.createElement("div");
+      h.className="heart";
+      h.innerHTML="❤️";
+      h.style.left=Math.random()*100+"vw";
+      document.body.appendChild(h);
+    }
+
+    // Butterflies
+    for(let i=0;i<6;i++){
+      let b=document.createElement("div");
+      b.className="butterfly";
+      b.innerHTML="🦋";
+      b.style.top=Math.random()*80+"%";
+      document.body.appendChild(b);
+    }
+
+    document.getElementById("startScreen").style.display="none";
+    document.getElementById("main").classList.remove("hidden");
+  };
+
+  // Questions
+  let questions=[
+    "1) Tumhare liye perfect love ka matlab kya hai?",
+    "2) Agar tum apne special person ko ek line bol sako, toh kya bolte?",
+    "3) Dream date choose karni ho toh mere sath karoge ya Riya ke sath?",
+    "4) Will you be my Valentine? 💖"
+  ];
+
+  let compliments=[
+    "Naruto claps! 👏 Wow, perfect answer! 😍",
+    "Hinata smiles 😘 That’s so cute!",
+    "Naruto blushes 😳 You're amazing!",
+  ];
+
+  let current=0;
+  document.getElementById("question").innerText=questions[current];
+
+  function nextQuestion(){
+    if(current<3){
+      if(current<3) alert(compliments[current]); // Compliment for first 3 questions
+      current++;
+      if(current<3){
+        document.getElementById("question").innerText=questions[current];
+      }
+      else{
+        document.getElementById("question").innerText=questions[current];
+        document.getElementById("answer").style.display="none";
+        document.getElementById("yesno").innerHTML=`
+          <button onclick="yesClicked()">YES 💖</button>
+          <button onclick="alert('No not allowed 😭❤️')">NO 😤</button>
+        `;
+      }
+    }
+  }
+
+  function yesClicked(){
+    document.getElementById("yesno").innerHTML="";
+    // Extra animation alert
+    alert("🎉 Surprise Opening! Butterflies & Hearts! 🦋❤️");
+    document.getElementById("finalMsg").innerText=
+`Meree pyaare babyy mere yuv 👀❤️
+
+I LOVE YOU isliye nahi ki tum smart ho...
+main tumse isliye pyar karti hun kyunki tumhara nature sabse pyara hai 😭❤️
+tumhari caring aur efforts mujhe bahut special feel karvate hain 🤌❤️
+
+Jitni comfortable main tumhare sath hun, utni kisi ke sath nahi 😭❤️
+Dil se bahut zyada pyaar karti hun main tumse 🫠👉🏻👈🏻❤️
+
+Valentine toh bas ek bahana tha… mujhe toh bas moka chahiye tha tumpe pyaar barsane ka 🤣❤️
+
+Thank you so much mere husband 👀❤️
+Mmmmmwaaaaaahhh 😘❤️`;
+  }
+
+</script>
+</body>
+  </html>
